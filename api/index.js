@@ -4,6 +4,12 @@ import bodyParser from 'body-parser';
 import { invert } from 'lodash';
 import { graphqlExpress, graphiqlExpress } from 'graphql-server-express';
 
+import { RandomQuotes } from './randomQuotes/models';
+import { RandomQuotesConnector } from './randomQuotes/connector';
+
+import { StormQuotesConnector } from './StormQuotes/connector';
+import { StormQuotes } from './StormQuotes/models';
+
 // XXX for socket
 // import { createServer } from 'http';
 // import { SubscriptionServer } from 'subscriptions-transport-ws';
@@ -44,18 +50,37 @@ app.use('/graphql', graphqlExpress((req) => {
     user = req.user;
   }
 
+  const rdqConnector = new RandomQuotesConnector({
+    key: 'r5Kt6RUCcumshuqpflBZXFFQPmPOp1pwmAgjsn6751jq7ZfujZ',
+  });
+
+  const rdq = new RandomQuotes({
+    connector: rdqConnector,
+  });
+
+  const stormConnector = new StormQuotesConnector();
+  const storm = new StormQuotes({ connector: stormConnector });
+
   // TODO: init connector per query
 
   return {
     schema,
     context: {
       user,
+      RandomQuotes: rdq,
+      StormQuotes: storm,
     },
   };
 }));
 
 app.use('/graphiql', graphiqlExpress({
   endpointURL: '/graphql',
+  query: `{
+    randomFeed {
+      content
+    }
+  }
+  `,
 }));
 
 app.get('/', (req, res) => {

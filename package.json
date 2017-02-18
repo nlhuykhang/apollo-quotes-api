@@ -31,7 +31,6 @@
     "dataloader": "1.2.0",
     "express": "4.14.1",
     "express-session": "1.15.0",
-    "persistgraphql": "^0.2.6",
     "graphql": "^0.9.1",
     "graphql-server-express": "^0.5.2",
     "graphql-subscriptions": "^0.2.3",
@@ -39,7 +38,10 @@
     "lodash": "4.17.4",
     "passport": "0.3.2",
     "passport-github": "1.1.0",
-    "request-promise": "4.1.1",
-    "subscriptions-transport-ws": "0.2.6"
+    "persistgraphql": "^0.2.6",
+    "request": "^2.79.0",
+    "request-promise": "^4.1.1",
+    "subscriptions-transport-ws": "0.2.6",
+    "unirest": "^0.5.1"
   }
 }
