@@ -10,6 +10,9 @@ import { RandomQuotesConnector } from './randomQuotes/connector';
 import { StormQuotesConnector } from './StormQuotes/connector';
 import { StormQuotes } from './StormQuotes/models';
 
+import { Quotes, Authors, Collections } from './mongo/models';
+import './mongo/connector';
+
 // XXX for socket
 // import { createServer } from 'http';
 // import { SubscriptionServer } from 'subscriptions-transport-ws';
@@ -69,6 +72,9 @@ app.use('/graphql', graphqlExpress((req) => {
       user,
       RandomQuotes: rdq,
       StormQuotes: storm,
+      Quotes: new Quotes(),
+      Authors: new Authors(),
+      Collections: new Collections(),
     },
   };
 }));
